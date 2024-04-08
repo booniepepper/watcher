@@ -1,0 +1,26 @@
+#!/bin/sh
+
+set -e
+
+ref='./.refs/modal'
+
+latest() {
+    curl -s "https://git.sr.ht/~rabbits/modal/log/master/rss.xml" \
+        | yq-xq -re .rss.channel.item[0].guid \
+        | xargs basename
+}
+
+rebuild() {
+    gh workflow run build-and-docker-release.yml \
+        -R booniepepper/modal-docker
+}
+
+prev=$(cat "$ref" || echo "init")
+curr=$(latest)
+
+if [ "$curr" != "$prev" ]
+then
+    mkdir -p .refs
+    echo "$curr" > "$ref"
+    rebuild
+fi
