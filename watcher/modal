@@ -6,7 +6,7 @@ ref='./.refs/modal'
 
 latest() {
     curl -s "https://git.sr.ht/~rabbits/modal/log/master/rss.xml" \
-        | yq-xq -re .rss.channel.item[0].guid \
+        | xq -re .rss.channel.item[0].guid \
         | xargs basename
 }
 
