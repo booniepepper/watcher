@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 
 log() {
-  >&2 echo "[$(date -Iseconds) watch] $*"
+    >&2 echo "[$(date -Iseconds) watch] $*"
 }
 
 
@@ -14,13 +14,13 @@ log "starting"
 
 while true
 do
-	for watcher in ./watcher/*
-  do
-		log "running $watcher"
-		(exec $watcher)
-	done
+    for watcher in ./watcher/*
+    do
+        log "running $watcher"
+        (exec $watcher)
+    done
 
-	log "sleeping for 5 min"
+    log "sleeping for 5 min"
 
-	sleep 5m
+    sleep 5m
 done
