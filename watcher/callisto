@@ -2,17 +2,17 @@
 
 set -e
 
-ref='./.refs/mirth'
+ref='./.refs/callisto'
 
 latest() {
-    curl -s "https://github.com/mirth-lang/mirth/commits/main.atom" \
+    curl -s "https://github.com/callisto-lang/compiler/commits/main.atom" \
         | xq -re .feed.entry[0].id \
         | xargs basename
 }
 
 rebuild() {
     gh workflow run build-and-docker-release.yml \
-        -R booniepepper/mirth-docker
+        -R booniepepper/callisto-docker
 }
 
 prev=$(cat "$ref" || echo "init")
